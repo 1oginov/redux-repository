@@ -1,10 +1,9 @@
 {
   "name": "redux-repository",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Redux Repository",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -19,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/1oginov/redux-repository/issues"
   },
-  "homepage": "https://github.com/1oginov/redux-repository#readme"
+  "homepage": "https://github.com/1oginov/redux-repository",
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-config-google": "^0.9.1"
+  }
 }
