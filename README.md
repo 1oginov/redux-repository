@@ -1,2 +1,1 @@
 # redux-repository
-Redux Repository

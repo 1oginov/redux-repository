@@ -1,0 +1,23 @@
+{
+  "name": "redux-repository",
+  "version": "0.0.0",
+  "description": "Redux Repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1oginov/redux-repository.git"
+  },
+  "keywords": [
+    "redux",
+    "repository"
+  ],
+  "author": "Danila Loginov <danila@loginov.rocks> (https://loginov.rocks)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1oginov/redux-repository/issues"
+  },
+  "homepage": "https://github.com/1oginov/redux-repository#readme"
+}
