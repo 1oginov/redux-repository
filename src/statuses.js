@@ -1,3 +1,5 @@
+/* @flow */
+
 /**
  * Failed status.
  * @type {string}

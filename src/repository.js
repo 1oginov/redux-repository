@@ -1,3 +1,5 @@
+/* @flow */
+
 /**
  * Merge resources IDs.
  * @return {Array<number|string>}

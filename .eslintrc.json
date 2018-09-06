@@ -6,6 +6,7 @@
     "eslint:recommended",
     "google"
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 9,
     "sourceType": "module"

@@ -1,3 +1,5 @@
+/* @flow */
+
 import * as S from './statuses';
 
 /**

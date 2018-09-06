@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "Redux Repository",
   "scripts": {
+    "flow": "flow",
     "lint": "eslint src"
   },
   "repository": {
@@ -20,7 +21,11 @@
   },
   "homepage": "https://github.com/1oginov/redux-repository",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^9.0.0",
+    "babel-preset-flow": "^6.23.0",
     "eslint": "^5.0.1",
-    "eslint-config-google": "^0.9.1"
+    "eslint-config-google": "^0.9.1",
+    "flow-bin": "^0.80.0"
   }
 }

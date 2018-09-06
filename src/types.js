@@ -1,3 +1,5 @@
+/* @flow */
+
 /**
  * Namespace.
  * @type {string}

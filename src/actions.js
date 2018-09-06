@@ -1,3 +1,5 @@
+/* @flow */
+
 import {getResourceById} from './repository';
 import {isExpired, isReceived, isRequested} from './resource';
 import * as T from './types';

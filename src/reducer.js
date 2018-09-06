@@ -1,3 +1,5 @@
+/* @flow */
+
 import {pushResource} from './repository';
 import {buildFailed, buildReceived, buildRequested} from './resource';
 import * as T from './types';
