@@ -2,13 +2,24 @@
 
 import * as S from './statuses';
 
+import type {
+  ResourseBuildFailedType,
+  ResourseBuildReceivedType,
+  ResourceBuildRequestedType,
+  ResourceIdType,
+  ResourceType,
+} from './flowTypes';
+
 /**
  * Build failed resource.
  * @param {number|string} id
  * @param {*} error
  * @return {Object}
  */
-export const buildFailed = (id, error) => ({
+export const buildFailed = <ErrorType>(
+    id: ResourceIdType,
+    error: ErrorType,
+): ResourseBuildFailedType<ErrorType> => ({
   error,
   id,
   status: S.FAILED,
@@ -21,7 +32,10 @@ export const buildFailed = (id, error) => ({
  * @param {*} data
  * @return {Object}
  */
-export const buildReceived = (id, data) => ({
+export const buildReceived = <DataType>(
+    id: ResourceIdType,
+    data: DataType,
+): ResourseBuildReceivedType<DataType> => ({
   data,
   id,
   status: S.RECEIVED,
@@ -33,7 +47,9 @@ export const buildReceived = (id, data) => ({
  * @param {number|string} id
  * @return {Object}
  */
-export const buildRequested = (id) => ({
+export const buildRequested = (
+    id: ResourceIdType,
+): ResourceBuildRequestedType => ({
   id,
   status: S.REQUESTED,
 });
@@ -43,7 +59,7 @@ export const buildRequested = (id) => ({
  * @param {Object} resource
  * @return {*}
  */
-export const extractData = (resource) =>
+export const extractData = (resource: ResourceType): any =>
     (resource && resource.data ? resource.data : null);
 
 /**
@@ -52,7 +68,7 @@ export const extractData = (resource) =>
  * @param {number} ttl
  * @return {boolean}
  */
-export const isExpired = (resource, ttl) =>
+export const isExpired = (resource: ResourceType, ttl: number): boolean =>
     !!(resource && Date.now() > resource.timestamp + ttl);
 
 /**
@@ -60,7 +76,7 @@ export const isExpired = (resource, ttl) =>
  * @param {Object} resource
  * @return {boolean}
  */
-export const isFailed = (resource) =>
+export const isFailed = (resource: ResourceType): boolean =>
     !!(resource && resource.status === S.FAILED);
 
 /**
@@ -68,7 +84,7 @@ export const isFailed = (resource) =>
  * @param {Object} resource
  * @return {boolean}
  */
-export const isReceived = (resource) =>
+export const isReceived = (resource: ResourceType): boolean =>
     !!(resource && resource.status === S.RECEIVED);
 
 /**
@@ -76,5 +92,5 @@ export const isReceived = (resource) =>
  * @param {Object} resource
  * @return {boolean}
  */
-export const isRequested = (resource) =>
+export const isRequested = (resource: ResourceType): boolean =>
     !!(resource && resource.status === S.REQUESTED);

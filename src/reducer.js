@@ -4,16 +4,23 @@ import {pushResource} from './repository';
 import {buildFailed, buildReceived, buildRequested} from './resource';
 import * as T from './types';
 
+import type {ActionType, RepositoryType} from './flowTypes';
+
 /**
  * Is resource action.
  * @param {string} resourceName
  * @param {Object} action
  * @return {boolean}
  */
-export const isResourceAction = (resourceName, action) =>
-    (action.payload && action.payload.resourceName &&
-        action.payload.resourceName === resourceName &&
-        T.ARRAY.indexOf(action.type) >= 0);
+export const isResourceAction = (
+    resourceName: string,
+    action: ActionType,
+): boolean => (
+    action.payload &&
+    action.payload.resourceName &&
+    action.payload.resourceName === resourceName &&
+    T.ARRAY.indexOf(action.type) >= 0
+);
 
 /**
  * Repository reducer.
@@ -21,7 +28,10 @@ export const isResourceAction = (resourceName, action) =>
  * @param {Object} action
  * @return {Object}
  */
-export const repositoryReducer = (repository, action) => {
+export const repositoryReducer = (
+    repository: RepositoryType,
+    action: ActionType,
+): RepositoryType => {
   switch (action.type) {
     case T.FETCH_RESOURCE_FAILED:
       return pushResource(repository,

@@ -4,6 +4,8 @@ import {getResourceById} from './repository';
 import {isExpired, isReceived, isRequested} from './resource';
 import * as T from './types';
 
+import type {FetchResourceOptionsType, ResourceIdType} from './flowTypes';
+
 /**
  * Fetch resource action creator.
  * @param {string} resourceName
@@ -14,9 +16,14 @@ import * as T from './types';
  * @return {Function}
  */
 // eslint-disable-next-line import/prefer-default-export
-export const fetchResource = (resourceName, id, repositoryExtractor,
-                              fetchFunction, options = {}) =>
-    (dispatch, getState) => {
+export const fetchResource = (
+    resourceName: string,
+    id: ResourceIdType,
+    repositoryExtractor: Function,
+    fetchFunction: Function,
+    options: FetchResourceOptionsType = {},
+): Function =>
+    (dispatch: Function, getState: Function): void => {
       const repository = repositoryExtractor(getState());
       const resourceInRepository = getResourceById(repository, id);
 

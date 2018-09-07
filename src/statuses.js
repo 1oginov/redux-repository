@@ -4,16 +4,16 @@
  * Failed status.
  * @type {string}
  */
-export const FAILED = 'failed';
+export const FAILED: string = 'failed';
 
 /**
  * Received status.
  * @type {string}
  */
-export const RECEIVED = 'received';
+export const RECEIVED: string = 'received';
 
 /**
  * Requested status.
  * @type {string}
  */
-export const REQUESTED = 'requested';
+export const REQUESTED: string = 'requested';
