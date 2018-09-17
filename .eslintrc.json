@@ -1,14 +1,41 @@
 {
-  "env": {
-    "es6": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "google"
-  ],
+  "extends": "airbnb-base",
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 9,
-    "sourceType": "module"
+  "plugins": [
+    "flowtype",
+    "jsdoc"
+  ],
+  "rules": {
+    "jsdoc/check-param-names": "error",
+    "jsdoc/check-tag-names": "error",
+    "jsdoc/check-types": "error",
+    "jsdoc/newline-after-description": "error",
+    "jsdoc/no-undefined-types": "error",
+    "jsdoc/require-description-complete-sentence": "error",
+    "jsdoc/require-param": "error",
+    "jsdoc/require-param-name": "error",
+    "jsdoc/require-param-type": "error",
+    "jsdoc/require-returns-type": "error",
+    "jsdoc/valid-types": "error",
+    "sort-keys": [
+      "error",
+      "asc",
+      {
+        "caseSensitive": false,
+        "natural": true
+      }
+    ],
+    "valid-jsdoc": [
+      "error",
+      {
+        "requireParamDescription": false,
+        "requireReturnDescription": false
+      }
+    ]
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": false
+    }
   }
 }
