@@ -3,23 +3,21 @@
 import * as S from './statuses';
 
 import type {
-  ResourseBuildFailedType,
-  ResourseBuildReceivedType,
-  ResourceBuildRequestedType,
+  ResourseFailedType,
+  ResourseReceivedType,
+  ResourceRequestedType,
   ResourceIdType,
   ResourceType,
 } from './flowTypes';
 
 /**
- * Build failed resource.
+ * Create an object representing failed resource.
+ *
  * @param {number|string} id
  * @param {*} error
- * @return {Object}
+ * @returns {{error: *, id: (number|string), status: string, timestamp: number}}
  */
-export const buildFailed = <ErrorType>(
-    id: ResourceIdType,
-    error: ErrorType,
-): ResourseBuildFailedType<ErrorType> => ({
+export const createFailed = (id: ResourceIdType, error: any): ResourseFailedType => ({
   error,
   id,
   status: S.FAILED,
@@ -27,15 +25,13 @@ export const buildFailed = <ErrorType>(
 });
 
 /**
- * Build received resource.
+ * Create an object representing received resource.
+ *
  * @param {number|string} id
  * @param {*} data
- * @return {Object}
+ * @returns {{data: *, id: (number|string), status: string, timestamp: number}}
  */
-export const buildReceived = <DataType>(
-    id: ResourceIdType,
-    data: DataType,
-): ResourseBuildReceivedType<DataType> => ({
+export const createReceived = (id: ResourceIdType, data: any): ResourseReceivedType => ({
   data,
   id,
   status: S.RECEIVED,
@@ -43,54 +39,73 @@ export const buildReceived = <DataType>(
 });
 
 /**
- * Build requested resource.
+ * Create an object representing requested resource.
+ *
  * @param {number|string} id
- * @return {Object}
+ * @returns {{id: (number|string), status: string}}
  */
-export const buildRequested = (
-    id: ResourceIdType,
-): ResourceBuildRequestedType => ({
+export const createRequested = (id: ResourceIdType): ResourceRequestedType => ({
   id,
   status: S.REQUESTED,
 });
 
 /**
- * Extract resource data.
+ * Extract data from the object representing resource.
+ *
  * @param {Object} resource
- * @return {*}
+ * @returns {*}
  */
-export const extractData = (resource: ResourceType): any =>
-    (resource && resource.data ? resource.data : null);
+export const extractData = (resource: ResourceType): any => (
+  resource && resource.data ? resource.data : undefined
+);
 
 /**
- * Is resource expired.
+ * Extract error from the object representing resource.
+ *
+ * @param {Object} resource
+ * @returns {*}
+ */
+export const extractError = (resource: ResourceType): any => (
+  resource && resource.error ? resource.error : undefined
+);
+
+/**
+ * Check if resource is expired.
+ *
  * @param {Object} resource
  * @param {number} ttl
- * @return {boolean}
+ * @returns {boolean}
  */
-export const isExpired = (resource: ResourceType, ttl: number): boolean =>
-    !!(resource && Date.now() > resource.timestamp + ttl);
+export const isExpired = (resource: ResourceType, ttl: number): boolean => (
+  resource && !!resource.timestamp && Date.now() > resource.timestamp + ttl
+);
 
 /**
- * Is resource failed.
+ * Check if resource is failed.
+ *
  * @param {Object} resource
- * @return {boolean}
+ * @returns {boolean}
  */
-export const isFailed = (resource: ResourceType): boolean =>
-    !!(resource && resource.status === S.FAILED);
+export const isFailed = (resource: ResourceType): boolean => (
+  resource && resource.status === S.FAILED
+);
 
 /**
- * Is resource received.
+ * Check if resource is received.
+ *
  * @param {Object} resource
- * @return {boolean}
+ * @returns {boolean}
  */
-export const isReceived = (resource: ResourceType): boolean =>
-    !!(resource && resource.status === S.RECEIVED);
+export const isReceived = (resource: ResourceType): boolean => (
+  resource && resource.status === S.RECEIVED
+);
 
 /**
- * Is resource requested.
+ * Check if resource is requested.
+ *
  * @param {Object} resource
- * @return {boolean}
+ * @returns {boolean}
  */
-export const isRequested = (resource: ResourceType): boolean =>
-    !!(resource && resource.status === S.REQUESTED);
+export const isRequested = (resource: ResourceType): boolean => (
+  resource && resource.status === S.REQUESTED
+);

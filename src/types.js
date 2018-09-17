@@ -1,49 +1,44 @@
 /* @flow */
 
 /**
- * Namespace.
+ * Prefix for the action types of this package.
  * @type {string}
  * @private
  */
 const NAMESPACE: string = '@@repository';
 
 /**
- * Fetch resource already received action type.
+ * Resource fetching canceled, because it has already been received.
  * @type {string}
  */
-export const FETCH_RESOURCE_ALREADY_RECEIVED: string =
-    `${NAMESPACE}/FETCH_RESOURCE_ALREADY_RECEIVED`;
+export const FETCH_RESOURCE_ALREADY_RECEIVED: string = `${NAMESPACE}/FETCH_RESOURCE_ALREADY_RECEIVED`;
 
 /**
- * Fetch resource already requested action type.
+ * Resource fetching canceled, because it has already been requested.
  * @type {string}
  */
-export const FETCH_RESOURCE_ALREADY_REQUESTED: string =
-    `${NAMESPACE}/FETCH_RESOURCE_ALREADY_REQUESTED`;
+export const FETCH_RESOURCE_ALREADY_REQUESTED: string = `${NAMESPACE}/FETCH_RESOURCE_ALREADY_REQUESTED`;
 
 /**
- * Fetch resource failed action type.
+ * Resource fetching failed.
  * @type {string}
  */
-export const FETCH_RESOURCE_FAILED: string =
-    `${NAMESPACE}/FETCH_RESOURCE_FAILED`;
+export const FETCH_RESOURCE_FAILED: string = `${NAMESPACE}/FETCH_RESOURCE_FAILED`;
 
 /**
- * Fetch resource received action type.
+ * Resource fetching completed.
  * @type {string}
  */
-export const FETCH_RESOURCE_RECEIVED: string =
-    `${NAMESPACE}/FETCH_RESOURCE_RECEIVED`;
+export const FETCH_RESOURCE_RECEIVED: string = `${NAMESPACE}/FETCH_RESOURCE_RECEIVED`;
 
 /**
- * Fetch resource requested action type.
+ * Resource fetching started.
  * @type {string}
  */
-export const FETCH_RESOURCE_REQUESTED: string =
-    `${NAMESPACE}/FETCH_RESOURCE_REQUESTED`;
+export const FETCH_RESOURCE_REQUESTED: string = `${NAMESPACE}/FETCH_RESOURCE_REQUESTED`;
 
 /**
- * Array of action types.
+ * Array of all of the action types.
  * @type {Array<string>}
  */
 export const ARRAY: Array<string> = [

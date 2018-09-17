@@ -1,62 +1,69 @@
 /* @flow */
 
-import type {RepositoryType, ResourceIdType, ResourceType} from './flowTypes';
+import type { RepositoryType, ResourceIdType, ResourceType } from './flowTypes';
 
 /**
  * Merge resources IDs.
- * @return {Array<number|string>}
+ *
+ * @param {Array<number|string>} ids
+ * @returns {Array<number|string>}
  * @private
  */
-const mergeResourcesIds = (...ids): Array<ResourceIdType> => [
-  ...new Set([].concat(...ids)),
-];
+const mergeResourcesIds = (...ids): Array<ResourceIdType> => [...new Set([].concat(...ids))];
 
 /**
- * Get initial repository state.
- * @return {{
+ * Create initial repository state.
+ *
+ * @returns {{
  *   allIds: Array<number|string>,
  *   byId: Object
  * }}
  */
-export const getInitialState = (): RepositoryType => ({
+export const createInitialState = (): RepositoryType => ({
   allIds: [],
   byId: {},
 });
 
 /**
- * Get resource from repository by ID.
+ * Get resource from the repository by ID.
+ *
  * @param {Object} repository
  * @param {number|string} id
- * @return {Object|null}
+ * @returns {Object|undefined} Resource object.
  */
-export const getResourceById = (
-    repository: RepositoryType,
-    id: ResourceIdType,
-): (ResourceType | null) =>
-    (repository.byId[id] || null);
+export const getResourceById = (repository: RepositoryType, id: ResourceIdType):
+  (ResourceType | void) => (repository.byId[id] || undefined);
 
 /**
- * Get resources array by IDs.
+ * Get array of resources from the repository by array of IDs.
+ *
  * @param {Object} repository
  * @param {Array<number|string>} ids
- * @return {Array<Object>}
+ * @returns {Array<Object>} Resources array.
  */
 export const getResourcesArrayByIds = (
-    repository: RepositoryType,
-    ids: Array<ResourceIdType>,
-): Array<ResourceType> => ids
-    .map((id: ResourceIdType) => getResourceById(repository, id))
-    .filter((resource: ResourceType | null) => !!resource);
+  repository: RepositoryType,
+  ids: Array<ResourceIdType>,
+): Array<ResourceType> => (
+  (
+    ids
+      .map((id: ResourceIdType) => getResourceById(repository, id))
+      .filter(resource => !!resource):
+    Array<any>
+  ):
+  Array<ResourceType>
+);
 
 /**
- * Push resource to repository.
+ * Push resource to the repository.
+ *
  * @param {Object} repository
  * @param {Object} resource
- * @return {Object}
+ * @returns {Object} Updated repository.
  */
 export const pushResource = (
-    repository: RepositoryType,
-    resource: ResourceType,
+  repository: RepositoryType,
+  resource: ResourceType,
 ): RepositoryType => ({
   allIds: mergeResourcesIds(repository.allIds, resource.id),
   byId: {
@@ -66,19 +73,20 @@ export const pushResource = (
 });
 
 /**
- * Push resources array to repository.
+ * Push array of resources to the repository.
+ *
  * @param {Object} repository
  * @param {Array<Object>} resources
- * @return {Object}
+ * @returns {Object} Updated repository.
  */
 export const pushResourcesArray = (
-    repository: RepositoryType,
-    resources: Array<ResourceType>,
+  repository: RepositoryType,
+  resources: Array<ResourceType>,
 ): RepositoryType => {
   const byId = {};
 
   const resourcesIds = resources.map((resource: ResourceType) => {
-    const {id} = resource;
+    const { id } = resource;
     byId[id] = resource;
 
     return id;
