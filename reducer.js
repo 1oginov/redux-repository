@@ -1,1 +1,1 @@
-export * from './src/reducer';
+export * from './lib/reducer';
