@@ -1,17 +1,26 @@
-/**
- * Failed status.
- * @type {string}
+/* @flow */
+
+/*
+ * Statuses values duplicated here to be used for other Flow types definitions.
  */
-export const FAILED = 'failed';
+export type FAILED_STATUS = 'failed';
+export type RECEIVED_STATUS = 'received';
+export type REQUESTED_STATUS = 'requested';
 
 /**
- * Received status.
+ * Status representing failed resource.
  * @type {string}
  */
-export const RECEIVED = 'received';
+export const FAILED: FAILED_STATUS = 'failed';
 
 /**
- * Requested status.
+ * Status representing received resource.
  * @type {string}
  */
-export const REQUESTED = 'requested';
+export const RECEIVED: RECEIVED_STATUS = 'received';
+
+/**
+ * Status representing requested resource.
+ * @type {string}
+ */
+export const REQUESTED: REQUESTED_STATUS = 'requested';

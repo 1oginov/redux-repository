@@ -2,8 +2,16 @@
   "name": "redux-repository",
   "version": "0.3.0",
   "description": "Redux Repository",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "lint": "eslint src"
+    "build": "babel src -d lib",
+    "clean": "rimraf lib",
+    "flow": "flow",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run clean && npm run lint && npm run build && flow-copy-source src lib"
   },
   "repository": {
     "type": "git",
@@ -20,7 +28,18 @@
   },
   "homepage": "https://github.com/1oginov/redux-repository",
   "devDependencies": {
-    "eslint": "^5.0.1",
-    "eslint-config-google": "^0.9.1"
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsdoc": "^3.8.0",
+    "flow-bin": "^0.81.0",
+    "flow-copy-source": "^2.0.2",
+    "rimraf": "^2.6.2"
   }
 }

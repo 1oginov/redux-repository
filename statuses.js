@@ -1,1 +1,1 @@
-export * from './src/statuses';
+export * from './lib/statuses';
