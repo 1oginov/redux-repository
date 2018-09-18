@@ -17,7 +17,7 @@ npm install --save redux-repository
 #### Actions
 
 ```js
-import { createFetchResource } from 'redux-repository/actions';
+import { createFetchResource } from 'redux-repository/lib/actions';
 
 export const fetchMyResource = (id) => createFetchResource(
   'myResource',
@@ -38,8 +38,8 @@ export const fetchMyResource = (id) => createFetchResource(
 #### Reducer
 
 ```js
-import { isResourceAction, repositoryReducer } from 'redux-repository/reducer';
-import { createInitialState } from 'redux-repository/repository';
+import { isResourceAction, repositoryReducer } from 'redux-repository/lib/reducer';
+import { createInitialState } from 'redux-repository/lib/repository';
 
 const initialState = {
   // ...
@@ -73,7 +73,7 @@ import {
   getResourcesArrayByIds,
   pushResource,
   pushResourcesArray,
-} from 'redux-repository/repository';
+} from 'redux-repository/lib/repository';
 ```
 
 #### Resource
@@ -89,7 +89,7 @@ import {
   isFailed,
   isReceived,
   isRequested,
-} from 'redux-repository/resource';
+} from 'redux-repository/lib/resource';
 ```
 
 #### Flow types
@@ -104,7 +104,7 @@ import type {
   ResourceRequestedType,
   ResourceType,
   RepositoryType,
-} from 'redux-repository/flowTypes';
+} from 'redux-repository/lib/flowTypes';
 ```
 
 ## Contribution
