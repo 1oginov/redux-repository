@@ -61,6 +61,7 @@ typings/
 .next
 
 .DS_Store
-.idea/**/dictionaries/
-.idea/**/tasks.xml
-.idea/**/workspace.xml
+.idea/dictionaries/
+.idea/tasks.xml
+.idea/workspace.xml
+lib/

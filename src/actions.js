@@ -1,58 +1,74 @@
-import {getResourceById} from './repository';
-import {isExpired, isReceived, isRequested} from './resource';
+/* @flow */
+
+import { getResourceById } from './repository';
+import { isExpired, isReceived, isRequested } from './resource';
 import * as T from './types';
 
+import type { FetchResourceOptionsType, ResourceIdType } from './flowTypes';
+
 /**
- * Fetch resource action creator.
- * @param {string} resourceName
- * @param {number|string} id
- * @param {Function} repositoryExtractor
- * @param {Function} fetchFunction
- * @param {Object} [options={}]
- * @return {Function}
+ * Create action creator function to fetch resource.
+ *
+ * @param {string} resourceName Resource name, used to distinguish different resources.
+ * @param {number|string} id Resource ID.
+ * @param {Function} repositoryExtractor Callback consuming state as a parameter and returning the
+ *                                       repository object.
+ * @param {Function} fetchFunction Callback implementing fetch algorithm and calling the first
+ *                                 parameter passed with the result or the second with an error.
+ * @param {Object} [options={}] Options.
+ * @returns {Function} Function to be used as an action creator.
  */
-// eslint-disable-next-line import/prefer-default-export
-export const fetchResource = (resourceName, id, repositoryExtractor,
-                              fetchFunction, options = {}) =>
-    (dispatch, getState) => {
-      const repository = repositoryExtractor(getState());
-      const resourceInRepository = getResourceById(repository, id);
+export const createFetchResource = ( // eslint-disable-line import/prefer-default-export
+  resourceName: string,
+  id: ResourceIdType,
+  repositoryExtractor: (Object) => Object,
+  fetchFunction: Function,
+  options: FetchResourceOptionsType = {},
+): Function => (
+  dispatch: Function,
+  getState: Function,
+): void => {
+  const repository = repositoryExtractor(getState());
+  const resourceInRepository = getResourceById(repository, id);
 
-      if (resourceInRepository) {
-        if (isReceived(resourceInRepository) && options.ttl &&
-            !isExpired(resourceInRepository, options.ttl)) {
-          dispatch({
-            type: T.FETCH_RESOURCE_ALREADY_RECEIVED,
-            payload: {id, resourceName},
-          });
-          return;
-        } else if (isRequested(resourceInRepository)) {
-          dispatch({
-            type: T.FETCH_RESOURCE_ALREADY_REQUESTED,
-            payload: {id, resourceName},
-          });
-          return;
-        }
-      }
-
+  if (resourceInRepository) {
+    if (isReceived(resourceInRepository)
+      && options.ttl
+      && !isExpired(resourceInRepository, options.ttl)) {
       dispatch({
-        type: T.FETCH_RESOURCE_REQUESTED,
-        payload: {id, resourceName},
+        payload: { id, resourceName },
+        type: T.FETCH_RESOURCE_ALREADY_RECEIVED,
       });
+      return;
+    }
 
-      const dispatchReceived = (data) => {
-        dispatch({
-          type: T.FETCH_RESOURCE_RECEIVED,
-          payload: {data, id, resourceName},
-        });
-      };
+    if (isRequested(resourceInRepository)) {
+      dispatch({
+        payload: { id, resourceName },
+        type: T.FETCH_RESOURCE_ALREADY_REQUESTED,
+      });
+      return;
+    }
+  }
 
-      const dispatchFailed = (error) => {
-        dispatch({
-          type: T.FETCH_RESOURCE_FAILED,
-          payload: {error, id, resourceName},
-        });
-      };
+  dispatch({
+    payload: { id, resourceName },
+    type: T.FETCH_RESOURCE_REQUESTED,
+  });
 
-      fetchFunction(dispatchReceived, dispatchFailed);
-    };
+  const dispatchReceived = (data) => {
+    dispatch({
+      payload: { data, id, resourceName },
+      type: T.FETCH_RESOURCE_RECEIVED,
+    });
+  };
+
+  const dispatchFailed = (error) => {
+    dispatch({
+      payload: { error, id, resourceName },
+      type: T.FETCH_RESOURCE_FAILED,
+    });
+  };
+
+  fetchFunction(dispatchReceived, dispatchFailed);
+};

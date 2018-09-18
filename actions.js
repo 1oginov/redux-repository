@@ -1,1 +1,1 @@
-export * from './src/actions';
+export * from './lib/actions';
