@@ -14,7 +14,7 @@ import type { ActionType, RepositoryType } from './flowTypes';
  * @param {Object} action
  * @returns {boolean}
  */
-export const isResourceAction = (resourceName: string, action: ActionType): boolean => (
+export const isResourceAction = (resourceName: string, action: ActionType): boolean => !!(
   action.payload
   && action.payload.resourceName
   && action.payload.resourceName === resourceName
