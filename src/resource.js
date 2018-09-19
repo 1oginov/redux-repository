@@ -76,8 +76,8 @@ export const extractError = (resource: ResourceType): any => (
  * @param {number} ttl
  * @returns {boolean}
  */
-export const isExpired = (resource: ResourceType, ttl: number): boolean => (
-  resource && !!resource.timestamp && Date.now() > resource.timestamp + ttl
+export const isExpired = (resource: ResourceType, ttl: number): boolean => !!(
+  resource && resource.timestamp && Date.now() > resource.timestamp + ttl
 );
 
 /**
@@ -86,7 +86,7 @@ export const isExpired = (resource: ResourceType, ttl: number): boolean => (
  * @param {Object} resource
  * @returns {boolean}
  */
-export const isFailed = (resource: ResourceType): boolean => (
+export const isFailed = (resource: ResourceType): boolean => !!(
   resource && resource.status === S.FAILED
 );
 
@@ -96,7 +96,7 @@ export const isFailed = (resource: ResourceType): boolean => (
  * @param {Object} resource
  * @returns {boolean}
  */
-export const isReceived = (resource: ResourceType): boolean => (
+export const isReceived = (resource: ResourceType): boolean => !!(
   resource && resource.status === S.RECEIVED
 );
 
@@ -106,6 +106,6 @@ export const isReceived = (resource: ResourceType): boolean => (
  * @param {Object} resource
  * @returns {boolean}
  */
-export const isRequested = (resource: ResourceType): boolean => (
+export const isRequested = (resource: ResourceType): boolean => !!(
   resource && resource.status === S.REQUESTED
 );
