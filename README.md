@@ -1,8 +1,8 @@
 # redux-repository
 
 [![NpmVersion](https://img.shields.io/npm/v/redux-repository.svg)](https://www.npmjs.com/package/redux-repository)
-[![dependencies Status](https://david-dm.org/1oginov/redux-repository/status.svg)](https://david-dm.org/1oginov/redux-repository)
-[![devDependencies Status](https://david-dm.org/1oginov/redux-repository/dev-status.svg)](https://david-dm.org/1oginov/redux-repository?type=dev)
+[![dependencies Status](https://david-dm.org/loginov-rocks/redux-repository/status.svg)](https://david-dm.org/loginov-rocks/redux-repository)
+[![devDependencies Status](https://david-dm.org/loginov-rocks/redux-repository/dev-status.svg)](https://david-dm.org/loginov-rocks/redux-repository?type=dev)
 
 ## Quick start
 
@@ -109,4 +109,4 @@ import type {
 
 ## Contribution
 
-Please use the [dev](https://github.com/1oginov/redux-repository/tree/dev) branch and feel free to contribute!
+Please use the [dev](https://github.com/loginov-rocks/redux-repository/tree/dev) branch and feel free to contribute!
