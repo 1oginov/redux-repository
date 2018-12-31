@@ -60,8 +60,13 @@ typings/
 # next.js build output
 .next
 
-.DS_Store
+# Generatable
+lib/
+
+# IntelliJ IDEA
 .idea/dictionaries/
 .idea/tasks.xml
 .idea/workspace.xml
-lib/
+
+# macOS
+.DS_Store
