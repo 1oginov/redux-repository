@@ -31,8 +31,8 @@ export const createInitialState = (): RepositoryType => ({
  * @param {number|string} id
  * @returns {Object|undefined} Resource object.
  */
-export const getResourceById = (repository: RepositoryType, id: ResourceIdType):
-  (ResourceType | void) => (repository.byId[id] || undefined);
+export const getResourceById = (repository: RepositoryType, id: ResourceIdType): (
+  ResourceType | void) => (repository.byId[id] || undefined);
 
 /**
  * Get array of resources from the repository by array of IDs.
@@ -44,15 +44,11 @@ export const getResourceById = (repository: RepositoryType, id: ResourceIdType):
 export const getResourcesArrayByIds = (
   repository: RepositoryType,
   ids: Array<ResourceIdType>,
-): Array<ResourceType> => (
-  (
-    ids
-      .map((id: ResourceIdType) => getResourceById(repository, id))
-      .filter(resource => !!resource):
-    Array<any>
-  ):
-  Array<ResourceType>
-);
+): Array<ResourceType> => ((
+  ids
+    .map((id: ResourceIdType) => getResourceById(repository, id))
+    .filter(resource => !!resource): Array<any>
+): Array<ResourceType>);
 
 /**
  * Push resource to the repository.
