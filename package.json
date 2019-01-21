@@ -1,6 +1,6 @@
 {
   "name": "redux-repository",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Redux Repository",
   "files": [
     "lib"
@@ -8,9 +8,12 @@
   "scripts": {
     "build": "babel src -d lib",
     "clean": "rimraf lib",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "flow": "flow",
     "lint": "eslint src",
-    "prepublishOnly": "npm run clean && npm run lint && npm run build && flow-copy-source src lib"
+    "prepublishOnly": "npm run lint && npm run flow && npm test && npm run clean && npm run build && flow-copy-source src lib",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -27,18 +30,30 @@
   },
   "homepage": "https://github.com/loginov-rocks/redux-repository",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
-    "eslint": "^5.11.1",
+    "babel-jest": "^23.6.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-flowtype": "^3.2.1",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsdoc": "^3.14.1",
-    "flow-bin": "^0.89.0",
+    "eslint-plugin-jsdoc": "^4.0.1",
+    "flow-bin": "^0.91.0",
     "flow-copy-source": "^2.0.2",
-    "rimraf": "^2.6.2"
+    "jest": "^23.6.0",
+    "rimraf": "^2.6.3"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/src/**/?(*.)+(spec|test).js?(x)"
+    ],
+    "verbose": true
   }
 }
