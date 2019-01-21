@@ -1,6 +1,6 @@
 {
   "name": "redux-repository",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Redux Repository",
   "files": [
     "lib"
@@ -8,6 +8,7 @@
   "scripts": {
     "build": "babel src -d lib",
     "clean": "rimraf lib",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "flow": "flow",
     "lint": "eslint src",
     "prepublishOnly": "npm run lint && npm run flow && npm test && npm run clean && npm run build && flow-copy-source src lib",
@@ -37,11 +38,12 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "eslint": "^5.12.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-flowtype": "^3.2.1",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsdoc": "^4.0.0",
+    "eslint-plugin-jsdoc": "^4.0.1",
     "flow-bin": "^0.91.0",
     "flow-copy-source": "^2.0.2",
     "jest": "^23.6.0",
