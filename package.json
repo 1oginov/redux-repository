@@ -44,7 +44,7 @@
     "eslint-plugin-flowtype": "^3.4.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsdoc": "^4.1.1",
-    "flow-bin": "^0.93.0",
+    "flow-bin": "^0.94.0",
     "flow-copy-source": "^2.0.3",
     "jest": "^24.1.0",
     "rimraf": "^2.6.3"
