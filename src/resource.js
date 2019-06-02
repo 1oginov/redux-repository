@@ -52,7 +52,7 @@ export const createRequested = (id: ResourceIdType): ResourceRequestedType => ({
 /**
  * Extract data from the object representing resource.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @returns {*}
  */
 export const extractData = (resource: ResourceType): any => (
@@ -62,7 +62,7 @@ export const extractData = (resource: ResourceType): any => (
 /**
  * Extract error from the object representing resource.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @returns {*}
  */
 export const extractError = (resource: ResourceType): any => (
@@ -72,7 +72,7 @@ export const extractError = (resource: ResourceType): any => (
 /**
  * Check if resource is expired.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @param {number} ttl
  * @returns {boolean}
  */
@@ -83,7 +83,7 @@ export const isExpired = (resource: ResourceType, ttl: number): boolean => !!(
 /**
  * Check if resource is failed.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @returns {boolean}
  */
 export const isFailed = (resource: ResourceType): boolean => !!(
@@ -93,7 +93,7 @@ export const isFailed = (resource: ResourceType): boolean => !!(
 /**
  * Check if resource is received.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @returns {boolean}
  */
 export const isReceived = (resource: ResourceType): boolean => !!(
@@ -103,7 +103,7 @@ export const isReceived = (resource: ResourceType): boolean => !!(
 /**
  * Check if resource is requested.
  *
- * @param {Object} resource
+ * @param {object} resource
  * @returns {boolean}
  */
 export const isRequested = (resource: ResourceType): boolean => !!(

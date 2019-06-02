@@ -16,7 +16,7 @@ const mergeResourcesIds = (...ids): Array<ResourceIdType> => [...new Set([].conc
  *
  * @returns {{
  *   allIds: Array<number|string>,
- *   byId: Object
+ *   byId: object
  * }}
  */
 export const createInitialState = (): RepositoryType => ({
@@ -27,9 +27,9 @@ export const createInitialState = (): RepositoryType => ({
 /**
  * Get resource from the repository by ID.
  *
- * @param {Object} repository
+ * @param {object} repository
  * @param {number|string} id
- * @returns {Object|undefined} Resource object.
+ * @returns {object|undefined} Resource object.
  */
 export const getResourceById = (repository: RepositoryType, id: ResourceIdType): (
   ResourceType | void) => (repository.byId[id] || undefined);
@@ -37,9 +37,9 @@ export const getResourceById = (repository: RepositoryType, id: ResourceIdType):
 /**
  * Get array of resources from the repository by array of IDs.
  *
- * @param {Object} repository
+ * @param {object} repository
  * @param {Array<number|string>} ids
- * @returns {Array<Object>} Resources array.
+ * @returns {Array<object>} Resources array.
  */
 export const getResourcesArrayByIds = (
   repository: RepositoryType,
@@ -53,9 +53,9 @@ export const getResourcesArrayByIds = (
 /**
  * Push resource to the repository.
  *
- * @param {Object} repository
- * @param {Object} resource
- * @returns {Object} Updated repository.
+ * @param {object} repository
+ * @param {object} resource
+ * @returns {object} Updated repository.
  */
 export const pushResource = (
   repository: RepositoryType,
@@ -71,9 +71,9 @@ export const pushResource = (
 /**
  * Push array of resources to the repository.
  *
- * @param {Object} repository
- * @param {Array<Object>} resources
- * @returns {Object} Updated repository.
+ * @param {object} repository
+ * @param {Array<object>} resources
+ * @returns {object} Updated repository.
  */
 export const pushResourcesArray = (
   repository: RepositoryType,

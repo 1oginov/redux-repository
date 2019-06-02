@@ -11,7 +11,7 @@ import type { ActionType, RepositoryType } from './flowTypes';
  * this package.
  *
  * @param {string} resourceName
- * @param {Object} action
+ * @param {object} action
  * @returns {boolean}
  */
 export const isResourceAction = (resourceName: string, action: ActionType): boolean => !!(
@@ -26,9 +26,9 @@ export const isResourceAction = (resourceName: string, action: ActionType): bool
  * action passes `isResourceAction()` test, your own reducer should delegate the action handling to
  * this function.
  *
- * @param {Object} repository
- * @param {Object} action
- * @returns {Object} Updated repository.
+ * @param {object} repository
+ * @param {object} action
+ * @returns {object} Updated repository.
  */
 export const repositoryReducer = (
   repository: RepositoryType,

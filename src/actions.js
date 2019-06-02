@@ -15,7 +15,7 @@ import type { FetchResourceOptionsType, ResourceIdType } from './flowTypes';
  *                                       repository object.
  * @param {Function} fetchFunction Callback implementing fetch algorithm and calling the first
  *                                 parameter passed with the result or the second with an error.
- * @param {Object} [options={}] Options.
+ * @param {object} [options={}] Options.
  * @returns {Function} Function to be used as an action creator.
  */
 export const createFetchResource = ( // eslint-disable-line import/prefer-default-export
