@@ -1,9 +1,10 @@
 # redux-repository
 
 [![NpmVersion](https://img.shields.io/npm/v/redux-repository.svg)](https://www.npmjs.com/package/redux-repository)
-[![Build Status](https://travis-ci.org/loginov-rocks/redux-repository.svg?branch=master)](https://travis-ci.org/loginov-rocks/redux-repository)
+[![Build Status](https://travis-ci.com/loginov-rocks/redux-repository.svg?branch=master)](https://travis-ci.com/loginov-rocks/redux-repository)
 [![Coverage Status](https://coveralls.io/repos/github/loginov-rocks/redux-repository/badge.svg?branch=master)](https://coveralls.io/github/loginov-rocks/redux-repository?branch=master)
-[![devDependencies Status](https://david-dm.org/loginov-rocks/redux-repository/dev-status.svg)](https://david-dm.org/loginov-rocks/redux-repository?type=dev) [![Greenkeeper badge](https://badges.greenkeeper.io/loginov-rocks/redux-repository.svg)](https://greenkeeper.io/)
+[![devDependencies Status](https://david-dm.org/loginov-rocks/redux-repository/dev-status.svg)](https://david-dm.org/loginov-rocks/redux-repository?type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/loginov-rocks/redux-repository.svg)](https://greenkeeper.io/)
 
 ## Quick start
 
