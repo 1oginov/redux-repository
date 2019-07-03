@@ -1,25 +1,23 @@
-/* @flow */
-
-import type { RepositoryType, ResourceIdType, ResourceType } from './flowTypes';
+import { Repository, Resource } from './interfaces';
 
 /**
  * Merge resources IDs.
  *
- * @param {Array<number|string>} ids
- * @returns {Array<number|string>}
+ * @param {Array<string>} ids
+ * @returns {Array<string>}
  * @private
  */
-const mergeResourcesIds = (...ids): Array<ResourceIdType> => [...new Set([].concat(...ids))];
+const mergeResourcesIds = (...ids: string[][]): string[] => Array.from(new Set(([] as string[]).concat(...ids)));
 
 /**
  * Create initial repository state.
  *
  * @returns {{
- *   allIds: Array<number|string>,
+ *   allIds: Array<string>,
  *   byId: object
  * }}
  */
-export const createInitialState = (): RepositoryType => ({
+export const createInitialState = <TData, TError>(): Repository<TData, TError> => ({
   allIds: [],
   byId: {},
 });
@@ -28,27 +26,28 @@ export const createInitialState = (): RepositoryType => ({
  * Get resource from the repository by ID.
  *
  * @param {object} repository
- * @param {number|string} id
- * @returns {object|undefined} Resource object.
+ * @param {string} id
+ * @returns {object|null} Resource object.
  */
-export const getResourceById = (repository: RepositoryType, id: ResourceIdType): (
-  ResourceType | void) => (repository.byId[id] || undefined);
+export const getResourceById = <TData, TError>(
+  repository: Repository<TData, TError>, id: string,
+): Resource<TData, TError> | null => (repository.byId[id] || null);
 
 /**
  * Get array of resources from the repository by array of IDs.
  *
  * @param {object} repository
- * @param {Array<number|string>} ids
+ * @param {Array<string>} ids
  * @returns {Array<object>} Resources array.
  */
-export const getResourcesArrayByIds = (
-  repository: RepositoryType,
-  ids: Array<ResourceIdType>,
-): Array<ResourceType> => ((
-  ids
-    .map((id: ResourceIdType) => getResourceById(repository, id))
-    .filter(resource => !!resource): Array<any>
-): Array<ResourceType>);
+export const getResourcesArrayByIds = <TData, TError>(
+  repository: Repository<TData, TError>,
+  ids: string[],
+): Resource<TData, TError>[] => (
+    ids
+      .map(id => getResourceById(repository, id))
+      .filter(resource => !!resource) as Resource<TData, TError>[]
+  );
 
 /**
  * Push resource to the repository.
@@ -57,16 +56,15 @@ export const getResourcesArrayByIds = (
  * @param {object} resource
  * @returns {object} Updated repository.
  */
-export const pushResource = (
-  repository: RepositoryType,
-  resource: ResourceType,
-): RepositoryType => ({
-  allIds: mergeResourcesIds(repository.allIds, resource.id),
-  byId: {
-    ...repository.byId,
-    [resource.id]: resource,
-  },
-});
+export const pushResource = <TData, TError>(
+  repository: Repository<TData, TError>, resource: Resource<TData, TError>,
+): Repository<TData, TError> => ({
+    allIds: mergeResourcesIds(repository.allIds, [resource.id]),
+    byId: {
+      ...repository.byId,
+      [resource.id]: resource,
+    },
+  });
 
 /**
  * Push array of resources to the repository.
@@ -75,13 +73,13 @@ export const pushResource = (
  * @param {Array<object>} resources
  * @returns {object} Updated repository.
  */
-export const pushResourcesArray = (
-  repository: RepositoryType,
-  resources: Array<ResourceType>,
-): RepositoryType => {
-  const byId = {};
+export const pushResourcesArray = <TData, TError>(
+  repository: Repository<TData, TError>,
+  resources: Resource<TData, TError>[],
+): Repository<TData, TError> => {
+  const byId: { [id: string]: Resource<TData, TError> } = {};
 
-  const resourcesIds = resources.map((resource: ResourceType) => {
+  const resourcesIds = resources.map(resource => {
     const { id } = resource;
     byId[id] = resource;
 

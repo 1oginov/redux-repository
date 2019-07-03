@@ -1,23 +1,16 @@
-/* @flow */
-
+import {
+  FailedResource, ReceivedResource, RequestedResource, Resource,
+} from './interfaces';
 import * as S from './statuses';
-
-import type {
-  ResourseFailedType,
-  ResourseReceivedType,
-  ResourceRequestedType,
-  ResourceIdType,
-  ResourceType,
-} from './flowTypes';
 
 /**
  * Create an object representing failed resource.
  *
- * @param {number|string} id
+ * @param {string} id
  * @param {*} error
- * @returns {{error: *, id: (number|string), status: string, timestamp: number}}
+ * @returns {{error: *, id: string, status: string, timestamp: number}}
  */
-export const createFailed = (id: ResourceIdType, error: any): ResourseFailedType => ({
+export const createFailed = <TError>(id: string, error: TError): FailedResource<TError> => ({
   error,
   id,
   status: S.FAILED,
@@ -27,11 +20,11 @@ export const createFailed = (id: ResourceIdType, error: any): ResourseFailedType
 /**
  * Create an object representing received resource.
  *
- * @param {number|string} id
+ * @param {string} id
  * @param {*} data
- * @returns {{data: *, id: (number|string), status: string, timestamp: number}}
+ * @returns {{data: *, id: string, status: string, timestamp: number}}
  */
-export const createReceived = (id: ResourceIdType, data: any): ResourseReceivedType => ({
+export const createReceived = <TData>(id: string, data: TData): ReceivedResource<TData> => ({
   data,
   id,
   status: S.RECEIVED,
@@ -41,10 +34,10 @@ export const createReceived = (id: ResourceIdType, data: any): ResourseReceivedT
 /**
  * Create an object representing requested resource.
  *
- * @param {number|string} id
- * @returns {{id: (number|string), status: string}}
+ * @param {string} id
+ * @returns {{id: string, status: string}}
  */
-export const createRequested = (id: ResourceIdType): ResourceRequestedType => ({
+export const createRequested = (id: string): RequestedResource => ({
   id,
   status: S.REQUESTED,
 });
@@ -55,8 +48,8 @@ export const createRequested = (id: ResourceIdType): ResourceRequestedType => ({
  * @param {object} resource
  * @returns {*}
  */
-export const extractData = (resource: ResourceType): any => (
-  resource && resource.data ? resource.data : undefined
+export const extractData = <TData, TError>(resource: Resource<TData, TError>): TData | null => (
+  resource && (resource as ReceivedResource<TData>).data ? (resource as ReceivedResource<TData>).data : null
 );
 
 /**
@@ -65,8 +58,8 @@ export const extractData = (resource: ResourceType): any => (
  * @param {object} resource
  * @returns {*}
  */
-export const extractError = (resource: ResourceType): any => (
-  resource && resource.error ? resource.error : undefined
+export const extractError = <TData, TError>(resource: Resource<TData, TError>): TError | null => (
+  resource && (resource as FailedResource<TError>).error ? (resource as FailedResource<TError>).error : null
 );
 
 /**
@@ -76,8 +69,9 @@ export const extractError = (resource: ResourceType): any => (
  * @param {number} ttl
  * @returns {boolean}
  */
-export const isExpired = (resource: ResourceType, ttl: number): boolean => !!(
-  resource && resource.timestamp && Date.now() > resource.timestamp + ttl
+export const isExpired = <TData, TError>(resource: Resource<TData, TError>, ttl: number): boolean => Boolean(
+  resource && (resource as ReceivedResource<TData>).timestamp
+  && Date.now() > (resource as ReceivedResource<TData>).timestamp + ttl,
 );
 
 /**
@@ -86,8 +80,8 @@ export const isExpired = (resource: ResourceType, ttl: number): boolean => !!(
  * @param {object} resource
  * @returns {boolean}
  */
-export const isFailed = (resource: ResourceType): boolean => !!(
-  resource && resource.status === S.FAILED
+export const isFailed = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+  resource && resource.status === S.FAILED,
 );
 
 /**
@@ -96,8 +90,8 @@ export const isFailed = (resource: ResourceType): boolean => !!(
  * @param {object} resource
  * @returns {boolean}
  */
-export const isReceived = (resource: ResourceType): boolean => !!(
-  resource && resource.status === S.RECEIVED
+export const isReceived = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+  resource && resource.status === S.RECEIVED,
 );
 
 /**
@@ -106,6 +100,6 @@ export const isReceived = (resource: ResourceType): boolean => !!(
  * @param {object} resource
  * @returns {boolean}
  */
-export const isRequested = (resource: ResourceType): boolean => !!(
-  resource && resource.status === S.REQUESTED
+export const isRequested = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+  resource && resource.status === S.REQUESTED,
 );
