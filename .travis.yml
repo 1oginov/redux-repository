@@ -3,6 +3,6 @@ node_js:
   - "8"
   - "10"
   - "node"
-script: npm run prepublishOnly
+script: npm run ci
 after_success:
   - npm run coveralls

@@ -6,15 +6,18 @@
     "lib"
   ],
   "scripts": {
-    "build": "babel src -d lib",
-    "clean": "rimraf lib",
-    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
-    "flow": "flow",
-    "lint": "eslint src",
-    "prepublishOnly": "npm run lint && npm run flow && npm run test:coverage && npm run clean && npm run build && flow-copy-source src lib",
+    "build": "npm run clean:build && babel src -d lib --extensions \".ts\"",
+    "ci": "npm run lint && npm run typecheck && npm test && npm run build",
+    "clean:build": "rimraf lib",
+    "clean:coverage": "rimraf coverage",
+    "coverage": "npm run clean:coverage && npm run test:coverage",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint --ext ts src",
+    "prepublishOnly": "npm run ci",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
-    "test:watch": "npm test -- --watch"
+    "test:update": "npm test -- --updateSnapshot",
+    "typecheck": "tsc"
   },
   "repository": {
     "type": "git",
@@ -30,30 +33,30 @@
     "url": "https://github.com/loginov-rocks/redux-repository/issues"
   },
   "homepage": "https://github.com/loginov-rocks/redux-repository",
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
-    "@babel/preset-flow": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.2",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.15",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "babel-jest": "^24.8.0",
     "coveralls": "^3.0.4",
-    "eslint": "^6.0.0",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-typescript": "^4.0.0",
     "eslint-plugin-flowtype": "^3.11.1",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsdoc": "^10.0.0",
-    "flow-bin": "^0.102.0",
-    "flow-copy-source": "^2.0.6",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsdoc": "^10.0.3",
     "jest": "^24.8.0",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.2"
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.js?(x)",
-      "<rootDir>/src/**/?(*.)+(spec|test).js?(x)"
+      "<rootDir>/src/**/__tests__/**/*.[jt]s?(x)",
+      "<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)"
     ],
     "verbose": true
   }
