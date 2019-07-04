@@ -1,15 +1,18 @@
 {
   "name": "redux-repository",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "Redux Repository",
   "files": [
     "lib"
   ],
   "scripts": {
-    "build": "npm run clean:build && babel src -d lib --extensions \".ts\"",
+    "build": "npm run clean:build && npm run build:sources && npm run build:types && npm run clean:tests",
+    "build:sources": "babel src -d lib --extensions \".ts\"",
+    "build:types": "tsc --emitDeclarationOnly",
     "ci": "npm run lint && npm run typecheck && npm test && npm run build",
     "clean:build": "rimraf lib",
     "clean:coverage": "rimraf coverage",
+    "clean:tests": "rimraf \"lib/**/*.test.js\"",
     "coverage": "npm run clean:coverage && npm run test:coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --ext ts src",
@@ -17,7 +20,7 @@
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "test:update": "npm test -- --updateSnapshot",
-    "typecheck": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -50,8 +53,14 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsdoc": "^10.0.3",
     "jest": "^24.8.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.3",
     "typescript": "^3.5.2"
+  },
+  "peerDependencies": {
+    "redux": ">= 4.0.0",
+    "redux-thunk": ">= 2.0.0"
   },
   "jest": {
     "testMatch": [
