@@ -1,10 +1,7 @@
-/* @flow */
-
+import { Repository } from './interfaces';
 import { pushResource } from './repository';
 import { createFailed, createReceived, createRequested } from './resource';
 import * as T from './types';
-
-import type { ActionType, RepositoryType } from './flowTypes';
 
 /**
  * Check if the action type relates to the named resource and should be handled by the reducer of
@@ -14,12 +11,14 @@ import type { ActionType, RepositoryType } from './flowTypes';
  * @param {object} action
  * @returns {boolean}
  */
-export const isResourceAction = (resourceName: string, action: ActionType): boolean => !!(
-  action.payload
-  && action.payload.resourceName
-  && action.payload.resourceName === resourceName
-  && T.ARRAY.indexOf(action.type) >= 0
-);
+export const isResourceAction = <TData, TError>(
+  resourceName: string, action: T.Action<TData, TError>,
+): boolean => Boolean(
+    action.payload
+    && action.payload.resourceName
+    && action.payload.resourceName === resourceName
+    && T.ALL_TYPES.indexOf(action.type) >= 0,
+  );
 
 /**
  * Function consuming repository and action objects and returning updated repository object. If the
@@ -30,10 +29,10 @@ export const isResourceAction = (resourceName: string, action: ActionType): bool
  * @param {object} action
  * @returns {object} Updated repository.
  */
-export const repositoryReducer = (
-  repository: RepositoryType,
-  action: ActionType,
-): RepositoryType => {
+export const repositoryReducer = <TData, TError>(
+  repository: Repository<TData, TError>,
+  action: T.Action<TData, TError>,
+): Repository<TData, TError> => {
   switch (action.type) {
     case T.FETCH_RESOURCE_FAILED:
       return pushResource(repository, createFailed(action.payload.id, action.payload.error));

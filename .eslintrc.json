@@ -3,15 +3,22 @@
     "jest": true
   },
   "extends": [
-    "airbnb-base",
-    "plugin:flowtype/recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-typescript/base"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "plugins": [
-    "flowtype",
     "jsdoc"
   ],
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "error",
     "jsdoc/check-param-names": "error",
     "jsdoc/check-tag-names": "error",
     "jsdoc/check-types": "error",
@@ -23,6 +30,13 @@
     "jsdoc/require-param-type": "error",
     "jsdoc/require-returns-type": "error",
     "jsdoc/valid-types": "error",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreTemplateLiterals": true
+      }
+    ],
     "sort-keys": [
       "error",
       "asc",
