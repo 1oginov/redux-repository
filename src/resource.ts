@@ -45,31 +45,31 @@ export const createRequested = (id: string): RequestedResource => ({
 /**
  * Extract data from the object representing resource.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @returns {*}
  */
-export const extractData = <TData, TError>(resource: Resource<TData, TError>): TData | null => (
+export const extractData = <TData, TError>(resource: Resource<TData, TError> | null): TData | null => (
   resource && (resource as ReceivedResource<TData>).data ? (resource as ReceivedResource<TData>).data : null
 );
 
 /**
  * Extract error from the object representing resource.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @returns {*}
  */
-export const extractError = <TData, TError>(resource: Resource<TData, TError>): TError | null => (
+export const extractError = <TData, TError>(resource: Resource<TData, TError> | null): TError | null => (
   resource && (resource as FailedResource<TError>).error ? (resource as FailedResource<TError>).error : null
 );
 
 /**
  * Check if resource is expired.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @param {number} ttl
  * @returns {boolean}
  */
-export const isExpired = <TData, TError>(resource: Resource<TData, TError>, ttl: number): boolean => Boolean(
+export const isExpired = <TData, TError>(resource: Resource<TData, TError> | null, ttl: number): boolean => Boolean(
   resource && (resource as ReceivedResource<TData>).timestamp
   && Date.now() > (resource as ReceivedResource<TData>).timestamp + ttl,
 );
@@ -77,29 +77,29 @@ export const isExpired = <TData, TError>(resource: Resource<TData, TError>, ttl:
 /**
  * Check if resource is failed.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @returns {boolean}
  */
-export const isFailed = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+export const isFailed = <TData, TError>(resource: Resource<TData, TError> | null): boolean => Boolean(
   resource && resource.status === S.FAILED,
 );
 
 /**
  * Check if resource is received.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @returns {boolean}
  */
-export const isReceived = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+export const isReceived = <TData, TError>(resource: Resource<TData, TError> | null): boolean => Boolean(
   resource && resource.status === S.RECEIVED,
 );
 
 /**
  * Check if resource is requested.
  *
- * @param {object} resource
+ * @param {object|null} resource
  * @returns {boolean}
  */
-export const isRequested = <TData, TError>(resource: Resource<TData, TError>): boolean => Boolean(
+export const isRequested = <TData, TError>(resource: Resource<TData, TError> | null): boolean => Boolean(
   resource && resource.status === S.REQUESTED,
 );
