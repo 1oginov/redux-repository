@@ -19,6 +19,7 @@
       }
     ],
     "@typescript-eslint/no-explicit-any": "error",
+    "import/prefer-default-export": "warn",
     "jsdoc/check-param-names": "error",
     "jsdoc/check-tag-names": "error",
     "jsdoc/check-types": "error",

@@ -1,8 +1,13 @@
 language: node_js
+
 node_js:
   - "8"
   - "10"
   - "node"
-script: npm run ci
+
+script:
+  - npm run ci
+  - npm run build
+
 after_success:
   - npm run coveralls
