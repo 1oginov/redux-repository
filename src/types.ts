@@ -76,6 +76,20 @@ export interface FetchResourceRequested {
 }
 
 /**
+ * Resources reset.
+ *
+ * @type {string}
+ */
+export const RESOURCES_RESET = '@@repository/RESOURCES_RESET';
+
+export interface ResourcesReset {
+  type: typeof RESOURCES_RESET;
+  payload: {
+    resourceName: string;
+  };
+}
+
+/**
  * Array of all of the action types.
  *
  * @type {Array<string>}
@@ -86,6 +100,7 @@ export const ALL_TYPES: string[] = [
   FETCH_RESOURCE_FAILED,
   FETCH_RESOURCE_RECEIVED,
   FETCH_RESOURCE_REQUESTED,
+  RESOURCES_RESET,
 ];
 
 export type Action<TData, TError> =
@@ -93,4 +108,5 @@ export type Action<TData, TError> =
   | FetchResourceAlreadyRequested
   | FetchResourceFailed<TError>
   | FetchResourceReceived<TData>
-  | FetchResourceRequested;
+  | FetchResourceRequested
+  | ResourcesReset;

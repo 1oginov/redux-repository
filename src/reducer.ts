@@ -1,5 +1,5 @@
 import { Repository } from './interfaces';
-import { pushResource } from './repository';
+import { createInitialState, pushResource } from './repository';
 import { createFailed, createReceived, createRequested } from './resource';
 import * as T from './types';
 
@@ -42,6 +42,9 @@ export const repositoryReducer = <TData, TError>(
 
     case T.FETCH_RESOURCE_REQUESTED:
       return pushResource(repository, createRequested(action.payload.id));
+
+    case T.RESOURCES_RESET:
+      return createInitialState();
 
     default:
       return repository;

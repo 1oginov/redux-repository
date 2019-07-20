@@ -41,3 +41,8 @@ export const fetchResourceRequested = <TData, TError>(
   payload: { id, resourceName },
   type: T.FETCH_RESOURCE_REQUESTED,
 });
+
+export const resourcesReset = <TData, TError>(resourceName: string): T.Action<TData, TError> => ({
+  payload: { resourceName },
+  type: T.RESOURCES_RESET,
+});
