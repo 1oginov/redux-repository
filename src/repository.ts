@@ -1,4 +1,5 @@
 import { Repository, Resource } from './interfaces';
+import * as S from './statuses';
 
 /**
  * Merge resources IDs.
@@ -92,5 +93,32 @@ export const pushResourcesArray = <TData, TError>(
       ...repository.byId,
       ...byId,
     },
+  };
+};
+
+/**
+ * Merge resources from the first repository with received resources from the second one.
+ *
+ * @param {object} first
+ * @param {object} second
+ * @returns {object} Result repository.
+ */
+export const mergeRepositories = <TData, TError>(
+  first: Repository<TData, TError>,
+  second: Repository<TData, TError>,
+): Repository<TData, TError> => {
+  const byId = { ...first.byId };
+  const newIds: string[] = [];
+
+  second.allIds.forEach(id => {
+    if (second.byId[id].status === S.RECEIVED && !first.byId[id]) {
+      newIds.push(id);
+      byId[id] = second.byId[id];
+    }
+  });
+
+  return {
+    allIds: mergeResourcesIds(first.allIds, newIds),
+    byId,
   };
 };
