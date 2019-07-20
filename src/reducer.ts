@@ -14,11 +14,11 @@ import * as T from './types';
 export const isResourceAction = <TData, TError>(
   resourceName: string, action: T.Action<TData, TError>,
 ): boolean => Boolean(
-    action.payload
-    && action.payload.resourceName
-    && action.payload.resourceName === resourceName
-    && T.ALL_TYPES.indexOf(action.type) >= 0,
-  );
+  action.payload
+  && action.payload.resourceName
+  && action.payload.resourceName === resourceName
+  && T.ALL_TYPES.indexOf(action.type) >= 0,
+);
 
 /**
  * Function consuming repository and action objects and returning updated repository object. If the

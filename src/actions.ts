@@ -34,30 +34,30 @@ export const createFetchResource = <TState, TData, TError>(
   fetchFunction: (dispatchReceived: (data: TData) => void, dispatchFailed: (error: TError) => void) => void,
   options: FetchResourceOptions = {},
 ): ThunkAction<void, TState, null, Action<TData, TError>> => (dispatch, getState) => {
-    const repository = repositoryExtractor(getState());
-    const resourceInRepository = getResourceById(repository, id);
+  const repository = repositoryExtractor(getState());
+  const resourceInRepository = getResourceById(repository, id);
 
-    if (resourceInRepository) {
-      if (isReceived(resourceInRepository) && options.ttl && !isExpired(resourceInRepository, options.ttl)) {
-        dispatch(fetchResourceAlreadyReceived<TData, TError>(resourceName, id));
-        return;
-      }
-
-      if (isRequested(resourceInRepository)) {
-        dispatch(fetchResourceAlreadyRequested<TData, TError>(resourceName, id));
-        return;
-      }
+  if (resourceInRepository) {
+    if (isReceived(resourceInRepository) && options.ttl && !isExpired(resourceInRepository, options.ttl)) {
+      dispatch(fetchResourceAlreadyReceived<TData, TError>(resourceName, id));
+      return;
     }
 
-    dispatch(fetchResourceRequested<TData, TError>(resourceName, id));
+    if (isRequested(resourceInRepository)) {
+      dispatch(fetchResourceAlreadyRequested<TData, TError>(resourceName, id));
+      return;
+    }
+  }
 
-    const dispatchReceived = (data: TData): void => {
-      dispatch(fetchResourceReceived<TData, TError>(resourceName, id, data));
-    };
+  dispatch(fetchResourceRequested<TData, TError>(resourceName, id));
 
-    const dispatchFailed = (error: TError): void => {
-      dispatch(fetchResourceFailed<TData, TError>(resourceName, id, error));
-    };
-
-    fetchFunction(dispatchReceived, dispatchFailed);
+  const dispatchReceived = (data: TData): void => {
+    dispatch(fetchResourceReceived<TData, TError>(resourceName, id, data));
   };
+
+  const dispatchFailed = (error: TError): void => {
+    dispatch(fetchResourceFailed<TData, TError>(resourceName, id, error));
+  };
+
+  fetchFunction(dispatchReceived, dispatchFailed);
+};

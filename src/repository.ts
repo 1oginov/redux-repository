@@ -44,10 +44,10 @@ export const getResourcesArrayByIds = <TData, TError>(
   repository: Repository<TData, TError>,
   ids: string[],
 ): Resource<TData, TError>[] => (
-    ids
-      .map(id => getResourceById(repository, id))
-      .filter(resource => !!resource) as Resource<TData, TError>[]
-  );
+  ids
+    .map(id => getResourceById(repository, id))
+    .filter(resource => !!resource) as Resource<TData, TError>[]
+);
 
 /**
  * Push resource to the repository.
@@ -59,12 +59,12 @@ export const getResourcesArrayByIds = <TData, TError>(
 export const pushResource = <TData, TError>(
   repository: Repository<TData, TError>, resource: Resource<TData, TError>,
 ): Repository<TData, TError> => ({
-    allIds: mergeResourcesIds(repository.allIds, [resource.id]),
-    byId: {
-      ...repository.byId,
-      [resource.id]: resource,
-    },
-  });
+  allIds: mergeResourcesIds(repository.allIds, [resource.id]),
+  byId: {
+    ...repository.byId,
+    [resource.id]: resource,
+  },
+});
 
 /**
  * Push array of resources to the repository.
