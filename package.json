@@ -16,7 +16,7 @@
     "coverage": "npm run clean:coverage && npm run test:coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --ext ts src",
-    "prepublishOnly": "npm run ci",
+    "prepublishOnly": "npm run ci && npm run build",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "test:update": "npm test -- --updateSnapshot",
