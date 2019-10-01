@@ -1,6 +1,6 @@
 {
   "name": "redux-repository",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Redux Repository",
   "files": [
     "lib"
@@ -9,14 +9,14 @@
     "build": "npm run clean:build && npm run build:sources && npm run build:types && npm run clean:tests",
     "build:sources": "babel src -d lib --extensions \".ts\"",
     "build:types": "tsc --emitDeclarationOnly",
-    "ci": "npm run lint && npm run typecheck && npm test",
+    "check": "npm run lint && npm run typecheck && npm test",
     "clean:build": "rimraf lib",
     "clean:coverage": "rimraf coverage",
     "clean:tests": "rimraf \"lib/**/*.test.js\"",
     "coverage": "npm run clean:coverage && npm run test:coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --ext ts src",
-    "prepublishOnly": "npm run ci && npm run build",
+    "prepublishOnly": "npm run check && npm run build",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
     "test:update": "npm test -- --updateSnapshot",
@@ -38,28 +38,28 @@
   },
   "homepage": "https://github.com/loginov-rocks/redux-repository",
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.15",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "babel-jest": "^24.8.0",
-    "coveralls": "^3.0.5",
-    "eslint": "^6.0.1",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/jest": "^24.0.18",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsdoc": "^15.5.3",
-    "jest": "^24.8.0",
+    "eslint-plugin-jsdoc": "^15.9.5",
+    "jest": "^24.9.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.3"
   },
   "peerDependencies": {
-    "redux": ">= 4.0.0",
-    "redux-thunk": ">= 2.0.0"
+    "redux": ">=4.0.0",
+    "redux-thunk": ">=2.0.0"
   },
   "jest": {
     "testMatch": [
