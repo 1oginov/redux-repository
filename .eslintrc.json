@@ -33,6 +33,7 @@
       }
     ],
     "import/prefer-default-export": "warn",
+    "indent": "off",
     "jsdoc/check-param-names": "error",
     "jsdoc/check-tag-names": "error",
     "jsdoc/check-types": "error",
