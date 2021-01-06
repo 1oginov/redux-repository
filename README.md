@@ -1,18 +1,15 @@
 # redux-repository
 
-[![NpmVersion](https://img.shields.io/npm/v/redux-repository.svg)](https://www.npmjs.com/package/redux-repository)
-[![Build Status](https://travis-ci.com/loginov-rocks/redux-repository.svg?branch=master)](https://travis-ci.com/loginov-rocks/redux-repository)
-[![Coverage Status](https://coveralls.io/repos/github/loginov-rocks/redux-repository/badge.svg?branch=master)](https://coveralls.io/github/loginov-rocks/redux-repository?branch=master)
-[![devDependencies Status](https://david-dm.org/loginov-rocks/redux-repository/dev-status.svg)](https://david-dm.org/loginov-rocks/redux-repository?type=dev)
-[![peerDependencies Status](https://david-dm.org/loginov-rocks/redux-repository/peer-status.svg)](https://david-dm.org/loginov-rocks/redux-repository?type=peer)
-[![Greenkeeper badge](https://badges.greenkeeper.io/loginov-rocks/redux-repository.svg)](https://greenkeeper.io/)
+[![npm](https://img.shields.io/npm/v/redux-repository)](https://www.npmjs.com/package/redux-repository)
+[![CI](https://github.com/loginov-rocks/redux-repository/workflows/CI/badge.svg)](https://github.com/loginov-rocks/redux-repository/actions)
+[![Coverage Status](https://coveralls.io/repos/github/loginov-rocks/redux-repository/badge.svg?branch=main)](https://coveralls.io/github/loginov-rocks/redux-repository?branch=main)
 
-## Quick start
+## Quick Start
 
 ### Install
 
 ```sh
-npm install --save redux-repository
+npm install redux-repository
 ```
 
 ### Use
@@ -111,7 +108,3 @@ import type {
   RepositoryType,
 } from 'redux-repository/lib/flowTypes';
 ```
-
-## Contribution
-
-Please use the [dev](https://github.com/loginov-rocks/redux-repository/tree/dev) branch and feel free to contribute!
