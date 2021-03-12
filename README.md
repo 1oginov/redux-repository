@@ -5,7 +5,7 @@
 [![CD](https://github.com/loginov-rocks/redux-repository/actions/workflows/cd.yml/badge.svg)](https://github.com/loginov-rocks/redux-repository/actions/workflows/cd.yml)
 [![Coverage Status](https://coveralls.io/repos/github/loginov-rocks/redux-repository/badge.svg?branch=main)](https://coveralls.io/github/loginov-rocks/redux-repository?branch=main)
 
-A versatile set of pure functions to simplify the management of remote resources in Redux.
+A versatile set of pure functions to simplify the management of remote resources with Redux.
 
 * A single resource consists of:
   * _ID_
@@ -16,7 +16,7 @@ A versatile set of pure functions to simplify the management of remote resources
 * The same resource can be requested from multiple places at the same time, it will only be fetched once
 * Resources are stored in the [normalized state shape](https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape)
 * Resources can be cached to skip consequent fetching
-* Read-only operations are supported so far: fetch and reset (remove local copy)
+* Read-only operations are supported so far: _fetch_ and _reset_ (remove local copy)
 
 ## Quick Start
 
@@ -83,6 +83,7 @@ import { State } from './State';
 const initialState: State = {
   // ...
   catalog: {
+    // ...
     products: createInitialState(),
   },
 };
@@ -92,6 +93,7 @@ export default (state: State = initialState, action: Action): State => {
     return {
       ...state,
       catalog: {
+        ...state.catalog,
         products: repositoryReducer(state.catalog.products, action as ReduxRepositoryAction<Product, string>),
       },
     };
@@ -171,9 +173,12 @@ import {
   isRequested,
 } from 'redux-repository/lib/resource';
 
-import { Action } from 'redux-repository/lib/types';
+import {
+  Action,
+} from 'redux-repository/lib/types';
 
-const productResource = getResourceById(products, id);
+// Examples:
+const productResource = getResourceById(productsRepository, productId);
 const productData = extractData(productResource);
 const productProgress = isRequested(productResource);
 ```

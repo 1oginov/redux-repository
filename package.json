@@ -1,7 +1,7 @@
 {
   "name": "redux-repository",
-  "version": "0.6.2",
-  "description": "A versatile set of pure functions to simplify the management of remote resources in Redux",
+  "version": "0.6.3",
+  "description": "A versatile set of pure functions to simplify the management of remote resources with Redux",
   "files": [
     "lib"
   ],
@@ -33,23 +33,23 @@
   },
   "homepage": "https://github.com/loginov-rocks/redux-repository",
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-typescript": "^7.12.7",
-    "@types/jest": "^26.0.19",
-    "@typescript-eslint/eslint-plugin": "^4.12.0",
-    "@typescript-eslint/parser": "^4.12.0",
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
     "babel-jest": "^26.6.3",
-    "eslint": "^7.17.0",
+    "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^30.7.13",
+    "eslint-plugin-jsdoc": "^32.2.0",
     "jest": "^26.6.3",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.1.3"
+    "typescript": "^4.2.3"
   },
   "peerDependencies": {
     "redux": ">=4.0.0",
