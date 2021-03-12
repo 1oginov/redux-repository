@@ -1,7 +1,7 @@
 {
   "name": "redux-repository",
   "version": "0.6.2",
-  "description": "Redux Repository",
+  "description": "A versatile set of pure functions to simplify the management of remote resources in Redux",
   "files": [
     "lib"
   ],
@@ -56,10 +56,8 @@
     "redux-thunk": ">=2.0.0"
   },
   "jest": {
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.[jt]s?(x)",
-      "<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "verbose": true
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.ts"
+    ]
   }
 }

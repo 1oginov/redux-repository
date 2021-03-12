@@ -1,8 +1,22 @@
 # redux-repository
 
 [![npm](https://img.shields.io/npm/v/redux-repository)](https://www.npmjs.com/package/redux-repository)
-[![CI](https://github.com/loginov-rocks/redux-repository/workflows/CI/badge.svg)](https://github.com/loginov-rocks/redux-repository/actions)
+[![CI](https://github.com/loginov-rocks/redux-repository/actions/workflows/ci.yml/badge.svg)](https://github.com/loginov-rocks/redux-repository/actions/workflows/ci.yml)
+[![CD](https://github.com/loginov-rocks/redux-repository/actions/workflows/cd.yml/badge.svg)](https://github.com/loginov-rocks/redux-repository/actions/workflows/cd.yml)
 [![Coverage Status](https://coveralls.io/repos/github/loginov-rocks/redux-repository/badge.svg?branch=main)](https://coveralls.io/github/loginov-rocks/redux-repository?branch=main)
+
+A versatile set of pure functions to simplify the management of remote resources in Redux.
+
+* A single resource consists of:
+  * _ID_
+  * _status_: requested, received, failed
+  * _data_, if the _status_ is received
+  * _error_, if the _status_ is failed
+  * _timestamp_ of the _data_ or _error_ acquisition
+* The same resource can be requested from multiple places at the same time, it will only be fetched once
+* Resources are stored in the [normalized state shape](https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape)
+* Resources can be cached to skip consequent fetching
+* Read-only operations are supported so far: fetch and reset (remove local copy)
 
 ## Quick Start
 
@@ -14,73 +28,137 @@ npm install redux-repository
 
 ### Use
 
-_TODO: Update_
+Implement action creators first:
 
-#### Actions
+```ts
+import { createFetchResource, createResetResources } from 'redux-repository/lib/actions';
+import { Action } from 'redux-repository/lib/types';
+import { ThunkAction } from 'redux-thunk';
 
-```js
-import { createFetchResource } from 'redux-repository/lib/actions';
+import { Product } from './Product';
+import { State } from './State';
 
-export const fetchMyResource = (id) => createFetchResource(
-  'myResource',
-  id,
-  (state) => state.myRepository,
-  (dispatchReceived, dispatchFailed) => {
-    // Your custom logic to fetch the resource.
-    fetch(`https://example.com/my-resources/${id}`)
-      .then(data => dispatchReceived(data))
-      .catch(error => dispatchFailed(error.toString()));
-  },
-  { ttl: 60 * 60 * 1000 },
+export interface FetchProductAction {
+  (id: string): void;
+}
+
+export interface ResetProductsAction {
+  (): void;
+}
+
+export const fetchProduct = (id: string): ThunkAction<void, State, null, Action<Product, string>> => (
+  createFetchResource(
+    'product',
+    id,
+    ({ catalog: { products } }) => products,
+    (dispatchReceived, dispatchFailed) => {
+      fetch(`https://example.com/api/products/${id}`)
+        .then(response => response.json())
+        .then(data => dispatchReceived(data))
+        .catch(error => dispatchFailed(error.toString()));
+    },
+    {
+      silentAlready: true, // skip "already received" messages, optional
+      ttl: 60 * 1000, // cache for 1 minute, optional
+    },
+  )
+);
+
+export const resetProducts = (): ThunkAction<void, State, null, Action<Product, string>> => (
+  createResetResources('product')
 );
 ```
 
-`fetchMyResource` here is a simple action creator that you can use as usual.
+Then, inject the repository reducer:
 
-#### Reducer
-
-```js
+```ts
+import { Action } from 'redux';
 import { isResourceAction, repositoryReducer } from 'redux-repository/lib/reducer';
 import { createInitialState } from 'redux-repository/lib/repository';
+import { Action as ReduxRepositoryAction } from 'redux-repository/lib/types';
 
-const initialState = {
+import { Product } from './Product';
+import { State } from './State';
+
+const initialState: State = {
   // ...
-  myRepository: createInitialState(),
-  // ...
+  catalog: {
+    products: createInitialState(),
+  },
 };
 
-export default (state = initialState, action) => {
-  if (isResourceAction('myResource', action)) {
+export default (state: State = initialState, action: Action): State => {
+  if (isResourceAction('product', action as ReduxRepositoryAction<Product, string>)) {
     return {
       ...state,
-      myRepository: repositoryReducer(state.myRepository, action),
+      catalog: {
+        products: repositoryReducer(state.catalog.products, action as ReduxRepositoryAction<Product, string>),
+      },
     };
   }
 
   switch (action.type) {
-  // ...
+    // ...
     default:
       return state;
   }
 };
 ```
 
-Having different names for resources (`myResource` here) helps to support different resources.
+That's it! Now you can trigger `fetchProduct`, `resetProducts` and wire components to the repository via state:
 
-#### Repository
+```ts
+import { connect } from 'react-redux';
+import { Repository } from 'redux-repository/lib/interfaces';
 
-```js
+import { fetchProduct, FetchProductAction } from './actions';
+import { Product } from './Product';
+import { State } from './State';
+
+interface StateProps {
+  products: Repository<Product, string>;
+}
+
+interface DispatchProps {
+  fetchProduct: FetchProductAction;
+}
+
+const mapStateToProps = ({ catalog: { products } }: State): StateProps => ({ products });
+const mapDispatchToProps: DispatchProps = { fetchProduct };
+
+export const connect = connect(mapStateToProps, mapDispatchToProps);
+```
+
+The full list of exported entities that might be useful:
+
+```ts
 import {
+  createFetchResource,
+  createResetResources,
+} from 'redux-repository/lib/actions';
+
+import {
+  RequestedResource,
+  ReceivedResource,
+  FailedResource,
+  Resource,
+  Repository,
+} from 'redux-repository/lib/interfaces';
+
+import {
+  isResourceAction,
+  repositoryReducer,
+} from 'redux-repository/lib/reducer';
+
+import {
+  createInitialState,
   getResourceById,
   getResourcesArrayByIds,
   pushResource,
   pushResourcesArray,
+  mergeRepositories,
 } from 'redux-repository/lib/repository';
-```
 
-#### Resource
-
-```js
 import {
   createFailed,
   createReceived,
@@ -92,19 +170,10 @@ import {
   isReceived,
   isRequested,
 } from 'redux-repository/lib/resource';
-```
 
-#### Flow types
+import { Action } from 'redux-repository/lib/types';
 
-```js
-import type {
-  ActionType,
-  FetchResourceOptionsType,
-  ResourceIdType,
-  ResourseFailedType,
-  ResourseReceivedType,
-  ResourceRequestedType,
-  ResourceType,
-  RepositoryType,
-} from 'redux-repository/lib/flowTypes';
+const productResource = getResourceById(products, id);
+const productData = extractData(productResource);
+const productProgress = isRequested(productResource);
 ```
